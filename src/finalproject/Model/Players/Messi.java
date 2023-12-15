@@ -11,6 +11,9 @@ import java.awt.image.BufferedImage;
  * @author abdul
  */
 public class Messi implements Player{
+    public void goat(){
+        System.out.println("MESSI IS THE GOAT");
+    }
 
     @Override
     public int getX() {
