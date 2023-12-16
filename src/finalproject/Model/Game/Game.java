@@ -2,58 +2,83 @@ package finalproject.Model.Game;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
+import finalproject.Controller.LivesController;
+import finalproject.Model.Objects.*;
+import finalproject.Model.Players.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game implements World , AvoidableHitObservor{
-
+    
+    private static Game instance = new Game();
+    private ObjectFactory factory;
+    private Player player;
+    private GameState stateOfGame;
+    private LivesController livesController;
+    private ScoresController scoresController;
+    private final int width = 800;
+    private final int height = 400;
+    private final List<GameObject> constants = new LinkedList();
+    private final List<GameObject> movables = new LinkedList();
+    private final List<GameObject> controlled = new LinkedList();
+    private int speed = 10;
+    private int controlSpeed = 10;
+    public GameObject b;
+    
+    public Game(){
+        b = new RedCard(400 , 200);
+        constants.add(b);
+    }
+    
     @Override
     public List<GameObject> getConstantObjects() {
-        return null;
+        return constants;
     }
 
     @Override
     public List<GameObject> getMovableObjects() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return movables;
     }
 
     @Override
     public List<GameObject> getControlableObjects() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return controlled;
     }
 
     @Override
     public int getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return width;
     }
 
     @Override
     public int getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return height;
     }
 
     @Override
     public boolean refresh() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //System.out.println("LOLO");
+        return true;
     }
 
     @Override
     public String getStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return " Game is Running 7ad yel7a2o hhhhh";
     }
 
     @Override
     public int getSpeed() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return speed;
     }
 
     @Override
     public int getControlSpeed() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return controlSpeed;
     }
 
     @Override
     public void updateHit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("AYYY I'm Hit");
     }
     
 }
