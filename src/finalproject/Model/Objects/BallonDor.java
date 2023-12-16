@@ -5,52 +5,79 @@
 package finalproject.Model.Objects;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author abdul
  */
 public class BallonDor implements GameObject{
-
+    
+    private final int IMAGE_SIZE = 40;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private boolean isVisible;
+    private BufferedImage[] spriteImages = new BufferedImage[1];
+    
+    public BallonDor(int x , int y){
+        this.x = x;
+        this.y = y;
+        this.isVisible = true;
+        spriteImages[0] = new BufferedImage(IMAGE_SIZE , IMAGE_SIZE , BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = spriteImages[0].createGraphics();
+        try{
+            g2d.drawImage(ImageIO.read(new File("resources/collectibles/balon.png")), 0, 0, IMAGE_SIZE, IMAGE_SIZE, null); 
+            g2d.dispose();
+        }
+        catch(IOException e){
+            System.out.println("IMAGE NOT FOUND");
+        }
+    }
+    
     @Override
     public int getX() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return x;
     }
 
     @Override
     public void setX(int x) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.x = x;
     }
 
     @Override
     public int getY() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return y;
     }
 
     @Override
     public void setY(int y) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.y = y;
     }
 
     @Override
     public int getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return width;
     }
 
     @Override
     public int getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return height;
     }
 
     @Override
     public boolean isVisible() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return isVisible;
     }
 
     @Override
     public BufferedImage[] getSpriteImages() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return spriteImages;
     }
     
 }
