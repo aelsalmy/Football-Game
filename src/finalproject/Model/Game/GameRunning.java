@@ -9,10 +9,11 @@ package finalproject.Model.Game;
  * @author abdul
  */
 public class GameRunning implements GameState{
-
+   
     @Override
     public boolean refreshGame() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //TODO: Refresh Game Logic
+        
+        return true;   
     }
-    
 }

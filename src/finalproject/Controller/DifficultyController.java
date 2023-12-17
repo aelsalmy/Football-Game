@@ -4,10 +4,30 @@
  */
 package finalproject.Controller;
 
+import finalproject.Model.DifficultyStrategies.Strategy;
+
 /**
  *
  * @author abdul
  */
 public class DifficultyController {
     
+    private Strategy difficulty;
+    private static DifficultyController instance = new DifficultyController();
+    
+    private DifficultyController(){
+        
+    }
+    
+    public static DifficultyController getInstance(){
+        return instance;
+    }
+    
+    public void setDifficulty(Strategy s){
+        this.difficulty = s;
+    }
+    
+    public void updateDifficulty(){
+        difficulty.updateDifficulty();
+    }
 }

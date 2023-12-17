@@ -12,7 +12,7 @@ public class HardStrategy implements Strategy{
 
     @Override
     public void updateDifficulty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //TODO: Logic to update difficulty to hard    
     }
     
 }

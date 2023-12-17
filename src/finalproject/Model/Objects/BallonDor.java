@@ -29,11 +29,8 @@ public class BallonDor implements GameObject{
         this.x = x;
         this.y = y;
         this.isVisible = true;
-        spriteImages[0] = new BufferedImage(IMAGE_SIZE , IMAGE_SIZE , BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = spriteImages[0].createGraphics();
         try{
-            g2d.drawImage(ImageIO.read(new File("resources/collectibles/balon.png")), 0, 0, IMAGE_SIZE, IMAGE_SIZE, null); 
-            g2d.dispose();
+            spriteImages[0] = ImageIO.read(new File("resources/collectibles/balon.png"));
         }
         catch(IOException e){
             System.out.println("IMAGE NOT FOUND");

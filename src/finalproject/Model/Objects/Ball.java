@@ -36,7 +36,7 @@ public class Ball implements GameObject{
             switch(ball){
                 case Jabulani -> spriteImages[0] = ImageIO.read(new File("resources/collectibles/jabulani.png")); 
                 case Rihla -> spriteImages[0] = ImageIO.read(new File("resources/collectibles/rihla.png"));
-                case Brazuca -> spriteImages[0] = ImageIO.read(new File("resources/collectibles/brazuca.png"));
+                case Brazuca -> spriteImages[0] = ImageIO.read(getClass().getResourceAsStream("resources/collectibles/rihla.png"));
             }
             this.height = spriteImages[0].getHeight();
             this.width = spriteImages[0].getWidth();

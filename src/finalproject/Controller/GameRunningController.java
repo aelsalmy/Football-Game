@@ -7,6 +7,9 @@ package finalproject.Controller;
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 import finalproject.Model.Game.Game;
+import finalproject.Model.Players.Player;
+import finalproject.Model.Players.PlayerFactory;
+import finalproject.Model.Players.PlayerNames;
 import java.awt.Color;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,9 +23,18 @@ public class GameRunningController {
     
     private static GameRunningController instance = new GameRunningController();
     private GameController gameController;
+    private DifficultyController diffController;
+    private PlayerFactory pFactory;
+    private Player player;
+    private Game g;
     
     private GameRunningController(){
-        
+        diffController = DifficultyController.getInstance();
+        pFactory = new PlayerFactory();
+    }
+    
+    public void setPlayer(PlayerNames pName){
+        this.player = pFactory.getPlayer(pName);
     }
     
     public static GameRunningController getInstance(){
@@ -30,7 +42,8 @@ public class GameRunningController {
     }
     
     public void startGame(){
-        Game g = new Game();
+        
+        g = new Game(player);
         
         //setup game menu
         JMenuBar  menuBar = new JMenuBar();

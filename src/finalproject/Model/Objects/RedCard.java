@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class RedCard implements GameObject{
 
-    private final int IMAGE_SIZE = 40;
     private int x;
     private int y;
     private int width;
@@ -27,7 +26,7 @@ public class RedCard implements GameObject{
     public RedCard(int x , int y){
         this.x = x;
         this.y = y;
-        this.isVisible = true;
+        this.isVisible = false;
         try{
             spriteImages[0] = ImageIO.read(new File("resources/game_end/redCard.png"));
             this.height = spriteImages[0].getHeight();
@@ -36,6 +35,10 @@ public class RedCard implements GameObject{
         catch(IOException e){
             System.out.println("No File Found");
         }
+    }
+    
+    public void setVisibility(boolean vis){
+        this.isVisible = vis;
     }
 
     @Override
@@ -77,5 +80,4 @@ public class RedCard implements GameObject{
     public BufferedImage[] getSpriteImages() {
         return spriteImages;
     }
-    
 }

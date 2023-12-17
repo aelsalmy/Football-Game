@@ -21,12 +21,13 @@ public class Injury implements GameObject{
         this.isVisible = true;
         try{
             spriteImages[0] = ImageIO.read(new File("resources/avoidables/injury.png"));
+            this.height = spriteImages[0].getHeight();
+            this.width = spriteImages[0].getWidth();
         }
         catch(IOException e){
-            
+            System.out.println("No Image Found");
         }
-        this.height = spriteImages[0].getHeight();
-        this.width = spriteImages[0].getWidth();
+        
     }
     
     @Override
