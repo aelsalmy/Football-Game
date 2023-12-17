@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Game implements World , AvoidableHitObservor{
     
-    private static Game instance = new Game();
     private ObjectFactory factory;
     private Player player;
     private GameState stateOfGame;
@@ -23,11 +22,15 @@ public class Game implements World , AvoidableHitObservor{
     private final List<GameObject> controlled = new LinkedList();
     private int speed = 10;
     private int controlSpeed = 10;
-    public GameObject b;
+
     
-    public Game(){
-        b = new RedCard(400 , 200);
-        constants.add(b);
+    public Game(Player p){
+        this.stateOfGame = new GameRunning();
+        controlled.add(p);
+        constants.add(new Whistle(10 , 22));
+        constants.add(new YellowCard(50 , 2));
+        constants.add(new RedCard(90 , 2));
+        
     }
     
     @Override
@@ -57,8 +60,7 @@ public class Game implements World , AvoidableHitObservor{
 
     @Override
     public boolean refresh() {
-        //System.out.println("LOLO");
-        return true;
+        return stateOfGame.refreshGame();
     }
 
     @Override

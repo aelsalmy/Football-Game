@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class Whistle implements GameObject {
 
-    private final int IMAGE_SIZE = 40;
     private int x;
     private int y;
     private int width;
@@ -27,16 +26,19 @@ public class Whistle implements GameObject {
     public Whistle(int x , int y){
         this.x = x;
         this.y = y;
-        this.isVisible = true;
+        this.isVisible = false;
         try{
             spriteImages[0] = ImageIO.read(new File("resources/game_end/whistle.png"));
+            this.height = spriteImages[0].getHeight();
+            this.width = spriteImages[0].getWidth();  
         }
         catch(IOException e){
             System.out.println("NO FILE FOUND");
         }
-        this.height = spriteImages[0].getHeight();
-        this.width = spriteImages[0].getWidth();
-        
+    }
+    
+    public void setVisibility(boolean vis){
+        this.isVisible = vis;
     }
     
     @Override

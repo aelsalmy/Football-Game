@@ -8,6 +8,17 @@ package finalproject.Model.Game;
  *
  * @author abdul
  */
-class ScoresController {
+class ScoresController implements AvoidableHitObservor{
+    
+    private int score = 0;
+    
+    @Override
+    public void updateHit() {
+        //TODO: Add logic to reset score 
+    }
+    
+    public int getScore(){
+        return score;
+    }
     
 }

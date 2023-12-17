@@ -34,8 +34,7 @@ public class Bellingham implements Player{
         }
         catch(IOException e){
             
-        }
-        
+        }     
     }
 
     @Override
@@ -55,7 +54,7 @@ public class Bellingham implements Player{
 
     @Override
     public void setY(int y) {
-        this.y = y;
+
     }
 
     @Override

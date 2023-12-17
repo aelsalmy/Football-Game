@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class YellowCard implements GameObject{
 
-    private final int IMAGE_SIZE = 40;
     private int x;
     private int y;
     private int width;
@@ -27,7 +26,7 @@ public class YellowCard implements GameObject{
     public YellowCard(int x , int y){
         this.x = x;
         this.y = y;
-        this.isVisible = true;
+        this.isVisible = false;
         try{
             spriteImages[0] = ImageIO.read(new File("resources/game_end/yellowCard.png"));
             this.height = spriteImages[0].getHeight();
@@ -37,7 +36,11 @@ public class YellowCard implements GameObject{
             
         }
     }
-
+    
+    public void setVisibility(boolean vis){
+        this.isVisible = vis;
+    }
+    
     @Override
     public int getX() {
         return x;

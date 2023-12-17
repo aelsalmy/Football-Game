@@ -12,7 +12,9 @@ public class GameEnded implements GameState{
 
     @Override
     public boolean refreshGame() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //TODO: End Game Logic
+        
+        return false;
     }
     
 }

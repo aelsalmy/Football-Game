@@ -14,7 +14,7 @@ public class LivesController implements AvoidableHitObservor{
 
     @Override
     public void updateHit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //TODO: logic to lose a life
     }
     
 }

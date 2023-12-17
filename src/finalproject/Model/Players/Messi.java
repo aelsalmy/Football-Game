@@ -53,7 +53,7 @@ public class Messi implements Player{
 
     @Override
     public void setY(int y) {
-        this.y = y;
+        
     }
 
     @Override
