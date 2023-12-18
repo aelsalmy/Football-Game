@@ -21,19 +21,49 @@ public class Game implements World , AvoidableHitObservor{
     private final List<GameObject> constants = new LinkedList();
     private final List<GameObject> movables = new LinkedList();
     private final List<GameObject> controlled = new LinkedList();
-    private int speed = 10;
+    private int speed = 1;
     private int controlSpeed = 10;
     private Random random = new Random();
+    private boolean init = false;
+    private List<GameObject> objs = new LinkedList();
 
     
     public Game(Player p){
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
+        
         controlled.add(p);
+        
         constants.add(new Whistle(10 , 22));
         constants.add(new YellowCard(50 , 2));
-        constants.add(new RedCard(90 , 2));
-        
+        constants.add(new RedCard(90 , 2)); 
+    }
+    
+    private void initialize(){
+        new Thread(new Runnable(){
+            @Override
+            public void run(){
+                init = true;
+                for(int i = 0 ; i < 3 ; i++){
+                    objs.add(factory.generateRandomAvoidable((int)(Math.random()*width), (int)(Math.random() * height/3)));
+                    try{
+                        Thread.sleep(500);
+                    }
+                    catch(InterruptedException e){
+            
+                    }
+                    objs.add(factory.generateRandomCollectable((int)(Math.random()*width), (int)(Math.random() * height/3)));
+                    try{
+                        Thread.sleep(500);
+                    }
+                    catch(InterruptedException e){
+            
+                    }
+                }
+                
+                System.out.println("Exit thread");
+            }
+        }).start();
     }
     
     @Override
@@ -63,22 +93,29 @@ public class Game implements World , AvoidableHitObservor{
 
     @Override
     public boolean refresh() {
-    
-        if (random.nextInt(100) < 1.2) {
-            GameObject collectableObject = factory.generateRandomCollectable(0, 0);
-            collectableObject.setX(random.nextInt(getWidth()));
-            collectableObject.setY(0);
-            movables.add(collectableObject);
+        if(!init)
+            this.initialize();
+        
+        objs.forEach((o) -> movables.add(o));
+        objs.clear();
+        
+        System.out.println("Refreshing");
+        
+        for (GameObject obj : movables) {
+            if(obj.getY() >= height){
+                if(obj instanceof Ball ball){
+                    ball.setImage((int)(Math.random()*3));
+                }
+                obj.setX((int)(Math.random()*width));
+                obj.setY((int)(Math.random() * height/3));
+            }
+            else   
+                obj.setY(obj.getY() + speed);
+            
         }
-        if (random.nextInt(100) < 0.5) {
-            GameObject avoidableObject = factory.generateRandomAvoidable(0, 0);
-            avoidableObject.setX(random.nextInt(getWidth()));
-            avoidableObject.setY(0);
-            movables.add(avoidableObject);
-        }
-        for (GameObject obj : movables.toArray(GameObject[]::new)) {
-            obj.setY(obj.getY() + speed);
-        }
+        
+        
+        
         return stateOfGame.refreshGame();
     }
     

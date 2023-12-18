@@ -27,23 +27,36 @@ public class Ball implements GameObject{
     private BufferedImage[] spriteImages = new BufferedImage[1];
     private BallTypes ballType;
     
-    public Ball(int x , int y , BallTypes ball){
+    public Ball(int x , int y , int ballType){
         this.x = x;
         this.y = y;
         this.isVisible = true;
-        this.ballType = ball;
+
+        this.setImage(ballType);
+        
+        this.height = spriteImages[0].getHeight();
+        this.width = spriteImages[0].getWidth();  
+    }
+    
+    public final void setImage(int x){
         try{
-            switch(ball){
-                case Jabulani -> spriteImages[0] = ImageIO.read(new File("resources/collectibles/jabulani.png")); 
-                case Rihla -> spriteImages[0] = ImageIO.read(new File("resources/collectibles/rihla.png"));
-                case Brazuca -> spriteImages[0] = ImageIO.read(getClass().getResourceAsStream("resources/collectibles/rihla.png"));
+            switch(x){
+                case 0 -> {
+                    spriteImages[0] = ImageIO.read(new File("resources/collectibles/ball_soccer1.png"));
+                    this.ballType = BallTypes.Jabulani;
+                }
+                case 1 -> {
+                    spriteImages[0] = ImageIO.read(new File("resources/collectibles/rihla.png"));
+                    this.ballType = BallTypes.Rihla;
+                }
+                case 2 -> {
+                    spriteImages[0] = ImageIO.read(new File("resources/collectibles/brazuca.png"));
+                    this.ballType = BallTypes.Brazuca;
+                }
             }
-            this.height = spriteImages[0].getHeight();
-            this.width = spriteImages[0].getWidth();
         }
-        catch(IOException e){
-            System.out.println("IMAGE NOT FOUND");
-        }
+        catch(IOException e){}
+            
     }
     
     @Override
