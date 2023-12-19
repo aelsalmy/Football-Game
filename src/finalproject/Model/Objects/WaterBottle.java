@@ -5,6 +5,7 @@
 package finalproject.Model.Objects;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class WaterBottle implements GameObject{
     private int height;
     private boolean isVisible;
     private BufferedImage[] spriteImages = new BufferedImage[1];
+    private Rectangle hitbox;
+    
     
     public WaterBottle(int x , int y){
         this.x = x;
@@ -36,9 +39,13 @@ public class WaterBottle implements GameObject{
         catch(IOException e){
             System.out.println("No File Found");
         }
+        this.hitbox=new Rectangle(x,y,width,height);
       
     }
-
+public Rectangle getHitbox()
+{
+    return this.hitbox;
+}
     @Override
     public int getX() {
         return x;

@@ -5,12 +5,14 @@ import eg.edu.alexu.csd.oop.game.World;
 import finalproject.Controller.LivesController;
 import finalproject.Model.Objects.*;
 import finalproject.Model.Players.*;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
-public class Game implements World , AvoidableHitObservor{
-    
+public class Game implements World, AvoidableHitObservor {
+
     private ObjectFactory factory;
     private Player player;
     private GameState stateOfGame;
@@ -26,46 +28,45 @@ public class Game implements World , AvoidableHitObservor{
     private Random random = new Random();
     private boolean init = false;
     private List<GameObject> objs = new LinkedList();
+    private Stack collectibleStack = new Stack();
 
-    
-    public Game(Player p){
+    public Game(Player p) {
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
-        
+
         controlled.add(p);
-        
-        constants.add(new Whistle(10 , 22));
-        constants.add(new YellowCard(50 , 2));
-        constants.add(new RedCard(90 , 2)); 
+
+        constants.add(new Whistle(10, 22));
+        constants.add(new YellowCard(50, 2));
+        constants.add(new RedCard(90, 2));
     }
-    
-    private void initialize(){
-        new Thread(new Runnable(){
+
+    private void initialize() {
+        new Thread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 init = true;
-                for(int i = 0 ; i < 3 ; i++){
-                    objs.add(factory.generateRandomAvoidable((int)(Math.random()*width), (int)(Math.random() * height/3)));
-                    try{
+                for (int i = 0; i < 3; i++) {
+                    objs.add(factory.generateRandomAvoidable((int) (Math.random() * width), (int) (Math.random() * height / 3)));
+                    try {
                         Thread.sleep(500);
+                    } catch (InterruptedException e) {
+
                     }
-                    catch(InterruptedException e){
-            
-                    }
-                    objs.add(factory.generateRandomCollectable((int)(Math.random()*width), (int)(Math.random() * height/3)));
-                    try{
+                    objs.add(factory.generateRandomCollectable((int) (Math.random() * width), (int) (Math.random() * height / 3)));
+
+                    try {
                         Thread.sleep(500);
-                    }
-                    catch(InterruptedException e){
-            
+                    } catch (InterruptedException e) {
+
                     }
                 }
-                
+
                 System.out.println("Exit thread");
             }
         }).start();
     }
-    
+
     @Override
     public List<GameObject> getConstantObjects() {
         return constants;
@@ -93,32 +94,52 @@ public class Game implements World , AvoidableHitObservor{
 
     @Override
     public boolean refresh() {
-        if(!init)
+        if (!init) {
             this.initialize();
-        
+        }
+
         objs.forEach((o) -> movables.add(o));
         objs.clear();
-        
-        System.out.println("Refreshing");
-        
+
+        // System.out.println("Refreshing");
         for (GameObject obj : movables) {
-            if(obj.getY() >= height){
-                if(obj instanceof Ball ball){
-                    ball.setImage((int)(Math.random()*3));
+            if (obj.getY() >= height) {
+                if (obj instanceof Ball ball) {
+                    ball.setImage((int) (Math.random() * 3));
                 }
-                obj.setX((int)(Math.random()*width));
-                obj.setY((int)(Math.random() * height/3));
-            }
-            else   
+                collision(obj);
+                obj.setX((int) (Math.random() * width));
+                obj.setY((int) (Math.random() * height / 3));
+                
+
+            } else {
                 obj.setY(obj.getY() + speed);
-            
+            }
+
         }
-        
-        
-        
+
         return stateOfGame.refreshGame();
     }
-    
+
+    public void collision(GameObject obj) {
+        WaterBottle wb;
+        Messi m;
+        System.out.println("collision function");
+        if (obj instanceof WaterBottle) {
+            wb = (WaterBottle) obj;
+            if (player instanceof Messi ) {
+                m = (Messi) player;
+                System.out.println("player instance of messi");
+                for (Rectangle R : m.getHitboxes()) {
+                    if (wb.getHitbox().intersects(R)) {
+                        this.pushToStack(obj);
+                    }
+                }
+            }
+
+        }
+    }
+
     @Override
     public String getStatus() {
         return " Game is Running 7ad yel7a2o hhhhh";
@@ -138,5 +159,15 @@ public class Game implements World , AvoidableHitObservor{
     public void updateHit() {
         System.out.println("AYYY I'm Hit");
     }
-    
+
+    public void pushToStack(GameObject obj) {
+        this.collectibleStack.push(obj);
+        System.out.println("wb in stack aho");
+    }
+
+    public void popAll() {
+        while (!this.collectibleStack.isEmpty()) {
+            this.collectibleStack.pop();
+        }
+    }
 }
