@@ -1,7 +1,9 @@
 package finalproject.Model.Players;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
+import finalproject.Model.Objects.Shapes;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 
 public abstract class Player implements GameObject{
@@ -14,11 +16,21 @@ public abstract class Player implements GameObject{
     private BufferedImage[] spriteImages = new BufferedImage[1];
     private int playerLeftHandHeight = 0;
     private int playerRightHandHeight = 0;
+    private Stack<Shapes> leftStack = new Stack();
+    private Stack<Shapes> rightStack = new Stack();
     
     public Player(int x , int y){
         this.x = x;
         this.y = y;
         this.isVisible = true;
+    }
+    
+    public Stack getLeftStack(){
+        return leftStack;
+    }
+    
+    public Stack getRightStack(){
+        return leftStack;
     }
     
     public int getLeftHandHeight(){
