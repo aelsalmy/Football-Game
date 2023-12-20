@@ -4,9 +4,11 @@
  */
 package finalproject.Model.Players;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -21,6 +23,7 @@ public class Messi implements Player{
     private int height;
     private boolean isVisible;
     private BufferedImage[] spriteImages = new BufferedImage[1];
+    private ArrayList<Rectangle> hitbox = new ArrayList();
     
     public Messi(int x , int y){
         this.x = x;
@@ -34,8 +37,15 @@ public class Messi implements Player{
         catch(IOException e){
             System.out.println("NO FILE FOUND");
         }
+        Rectangle hb = new Rectangle(1,10,4,2);
+        Rectangle hb2 = new Rectangle(25,10,4,2);
+        hitbox.add(hb);
+        hitbox.add(hb2);
     }
-    
+    public ArrayList<Rectangle> getHitboxes()
+    {
+        return hitbox;
+    }
     @Override
     public int getX() {
         return x;
