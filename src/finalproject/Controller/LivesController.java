@@ -5,6 +5,7 @@
 package finalproject.Controller;
 
 import finalproject.Model.Game.AvoidableHitObservor;
+import finalproject.Model.Game.CollectableHitObservor;
 
 /**
  *
@@ -15,6 +16,5 @@ public class LivesController implements AvoidableHitObservor{
     @Override
     public void updateHit() {
         //TODO: logic to lose a life
-    }
-    
+    }    
 }

@@ -5,40 +5,50 @@ import eg.edu.alexu.csd.oop.game.World;
 import finalproject.Controller.LivesController;
 import finalproject.Model.Objects.*;
 import finalproject.Model.Players.*;
-import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import java.util.Stack;
 
-public class Game implements World, AvoidableHitObservor {
+public class Game implements World, AvoidableHitObservor, CollectableHitObservor {
 
     private ObjectFactory factory;
     private Player player;
     private GameState stateOfGame;
-    private LivesController livesController;
-    private ScoresController scoresController;
-    private final int width = 800;
-    private final int height = 400;
+    private final LivesController livesController = new LivesController();
+    private final ScoresController scoresController = new ScoresController();
+    private final AvoidableHitObservable hitObs;
+    private final CollectableHitObservable collectObs;
+    private final int width = 1000;
+    private final int height = 600;
     private final List<GameObject> constants = new LinkedList();
     private final List<GameObject> movables = new LinkedList();
     private final List<GameObject> controlled = new LinkedList();
     private int speed = 1;
     private int controlSpeed = 10;
-    private Random random = new Random();
     private boolean init = false;
     private List<GameObject> objs = new LinkedList();
-    private Stack collectibleStack = new Stack();
+    private List<Shapes> destroy = new LinkedList();
+    private boolean hitInLeft = false;
+
 
     public Game(Player p) {
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
+        this.player = p;
+        
+        hitObs = AvoidableHitObservable.getInstance();
+        hitObs.addSubscriber(livesController);
+        hitObs.addSubscriber(scoresController);
+        
+        collectObs = CollectableHitObservable.getInstance();
+        collectObs.addSubscriber(scoresController);
 
         controlled.add(p);
 
         constants.add(new Whistle(10, 22));
         constants.add(new YellowCard(50, 2));
         constants.add(new RedCard(90, 2));
+        hitObs.addSubscriber(this);
+        collectObs.addSubscriber(this);
     }
 
     private void initialize() {
@@ -103,41 +113,49 @@ public class Game implements World, AvoidableHitObservor {
 
         // System.out.println("Refreshing");
         for (GameObject obj : movables) {
-            if (obj.getY() >= height) {
+            Shapes s = (Shapes) obj;
+            if (s.getY() >= height) {
                 if (obj instanceof Ball ball) {
                     ball.setImage((int) (Math.random() * 3));
                 }
-                collision(obj);
-                obj.setX((int) (Math.random() * width));
-                obj.setY((int) (Math.random() * height / 3));
-                
-
-            } else {
-                obj.setY(obj.getY() + speed);
+                s.setX((int) (Math.random() * width));
+                s.setY((int) (Math.random() * height / 3));
             }
-
+            else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()){
+                if(leftHandCollides(s))
+                    this.collisionOccured(s);
+                }
+            else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()){
+                if(rightHandCollides(s))
+                    this.collisionOccured(s);
+            }
+            
+            s.setY(s.getY() + speed);
         }
-
+        destroy.forEach((o) -> movables.remove(o));
+        destroy.clear();
         return stateOfGame.refreshGame();
     }
+    
+    private boolean rightHandCollides(Shapes s){
+        boolean rightHand = (s.getX() + s.getWidth()) < player.getRightHand() + player.getX() - 10 || s.getX() > player.getRightHand() + player.getX(); 
+        if(!rightHand)
+            this.hitInLeft = false;
+        return !rightHand;
+    }
+    
+    private boolean leftHandCollides(Shapes s){
+        boolean leftHand = (s.getX() + s.getWidth()) < player.getLeftHand() + player.getX() || s.getX() > player.getLeftHand() + 10 + player.getX(); 
+        if(!leftHand)
+            this.hitInLeft = true;
+        return !leftHand;
+    }
 
-    public void collision(GameObject obj) {
-        WaterBottle wb;
-        Messi m;
-        System.out.println("collision function");
-        if (obj instanceof WaterBottle) {
-            wb = (WaterBottle) obj;
-            if (player instanceof Messi ) {
-                m = (Messi) player;
-                System.out.println("player instance of messi");
-                for (Rectangle R : m.getHitboxes()) {
-                    if (wb.getHitbox().intersects(R)) {
-                        this.pushToStack(obj);
-                    }
-                }
-            }
-
-        }
+    private void collisionOccured(Shapes shape) {
+        if(shape.getType() == ObjectTypes.Avoidable)
+            hitObs.notifySubscribers();
+        else
+            collectObs.notifySubscribers(shape);
     }
 
     @Override
@@ -160,14 +178,17 @@ public class Game implements World, AvoidableHitObservor {
         System.out.println("AYYY I'm Hit");
     }
 
-    public void pushToStack(GameObject obj) {
-        this.collectibleStack.push(obj);
-        System.out.println("wb in stack aho");
-    }
-
-    public void popAll() {
-        while (!this.collectibleStack.isEmpty()) {
-            this.collectibleStack.pop();
-        }
+    @Override
+    public void updateCollect(Shapes s) {
+        destroy.add(s);
+        s.setIsConstant(true);
+        controlled.add(s);
+        
+        if(hitInLeft)
+            player.addLeftHandHeight(s.getHeight());
+        else
+            player.addRightHandHeight(s.getHeight());
+        
+        objs.add(factory.generateRandomCollectable((int)(Math.random() * width), (int) (Math.random() * height / 3)));
     }
 }

@@ -13,9 +13,9 @@ public class PlayerFactory {
     public Player getPlayer(PlayerNames p){
         Player player = null;
         switch(p){
-            case Messi -> player = new Messi(400 , 190);
-            case Nunez -> player = new Nunez(400 , 200);
-            case Bellingham -> player = new Bellingham(400 , 200);
+            case Messi -> player = new Messi(400 , 390);
+            case Nunez -> player = new Nunez(400 , 400);
+            case Bellingham -> player = new Bellingham(400 , 400);
         }
         return player;
     }

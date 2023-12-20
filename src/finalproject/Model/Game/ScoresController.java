@@ -4,11 +4,13 @@
  */
 package finalproject.Model.Game;
 
+import finalproject.Model.Objects.Shapes;
+
 /**
  *
  * @author abdul
  */
-class ScoresController implements AvoidableHitObservor{
+class ScoresController implements AvoidableHitObservor , CollectableHitObservor{
     
     private int score = 0;
     
@@ -19,6 +21,11 @@ class ScoresController implements AvoidableHitObservor{
     
     public int getScore(){
         return score;
+    }
+
+    @Override
+    public void updateCollect(Shapes s) {
+
     }
     
 }
