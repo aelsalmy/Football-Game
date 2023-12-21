@@ -200,8 +200,12 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
             obj.setVisibility(false);
             player.addLeftHandHeight(-1 * obj.getHeight());
         }
+        this.play();
     }
-
+private void play()
+{
+    this.player.playCelebration();
+}
     @Override
     public void updateCollectRight(ItemTypes s) {
         //remove top 3 in RightStack

@@ -1,7 +1,9 @@
 package finalproject.View;
 
+import finalproject.Controller.AudioPlayer;
 import finalproject.Controller.GameRunningController;
 import finalproject.Model.Players.PlayerNames;
+import java.util.HashSet;
 
 public class MainMenuView extends javax.swing.JFrame {
 
@@ -9,10 +11,15 @@ public class MainMenuView extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     GameRunningController gameController;
-    
+
     public MainMenuView() {
         initComponents();
-        gameController = GameRunningController.getInstance();  
+        GameRunningController.setParentFrame(this);
+        gameController = GameRunningController.getInstance();
+
+        AudioPlayer.Champions();
+        
+
     }
 
     /**
@@ -91,11 +98,15 @@ public class MainMenuView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch(jComboBox1.getSelectedItem().toString()){
-            case "Messi" -> gameController.setPlayer(PlayerNames.Messi);
-            case "Nunez" -> gameController.setPlayer(PlayerNames.Nunez);
-            case "Bellingham" -> gameController.setPlayer(PlayerNames.Bellingham);
-        }       
+        switch (jComboBox1.getSelectedItem().toString()) {
+            case "Messi" ->gameController.setPlayer(PlayerNames.Messi);
+            case "Nunez" ->gameController.setPlayer(PlayerNames.Nunez);
+            case "Bellingham" ->gameController.setPlayer(PlayerNames.Bellingham);
+
+        }
+        
+        AudioPlayer.stop();
+        AudioPlayer.Ambient();
         gameController.startGame();
     }//GEN-LAST:event_jButton1ActionPerformed
 

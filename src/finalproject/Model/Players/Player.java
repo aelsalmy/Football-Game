@@ -23,7 +23,7 @@ public abstract class Player implements GameObject{
     private int stackedOfSameTypeLeft = 0;
     private int stackedOfSameTypeRight = 0;
     private CollectableHitObservable collectObs;
-    
+    public abstract void playCelebration();
     public Player(int x , int y , CollectableHitObservable collectObs){
         this.x = x;
         this.y = y;
