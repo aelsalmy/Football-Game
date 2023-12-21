@@ -40,6 +40,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         this.hitObs = hitObs;
         hitObs.addSubscriber(livesController);
         
+        constants.add(new BackgroundImage());
         controlled.add(p);
         
         lives.add(new Whistle(10, 22));
