@@ -3,27 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Game/GameRunning.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/Injury.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Controller/DifficultyController.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/BallonDor.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/Ball.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Players/PlayerNames.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/ObjectFactory.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/WaterBottle.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/View/MainMenuView.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/YellowCard.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Players/Bellingham.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Players/PlayerFactory.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Players/Messi.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Game/ScoresController.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Game/Game.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Players/Nunez.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Game/GameEnded.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Controller/GameRunningController.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/RedCard.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/BallTypes.java</file>
-            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/FinalProject/src/finalproject/Model/Objects/Whistle.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Players/Nunez.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Players/Messi.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Objects/Ball.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Players/Bellingham.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Game/ScoresController.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Players/PlayerFactory.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Game/GameRunning.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Players/Player.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/View/MainMenuView.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Controller/LivesController.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Game/AvoidableHitObservable.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Objects/BallonDor.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Controller/GameRunningController.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Objects/Shapes.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Objects/ObjectTypes.java</file>
+            <file>file:/E:/Uni/CCE%20Year%202/Term%205%20(Fall%202023)/Programming%20II/Final%20Project/FinalProject/ProjectCloned/src/finalproject/Model/Game/Game.java</file>
         </group>
     </open-files>
 </project-private>

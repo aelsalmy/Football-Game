@@ -4,7 +4,7 @@
  */
 package finalproject.Model.Players;
 
-import java.awt.image.BufferedImage;
+import finalproject.Model.Game.CollectableHitObservable;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -13,69 +13,44 @@ import javax.imageio.ImageIO;
  *
  * @author abdul
  */
-public class Nunez implements Player{
-
-    private final int IMAGE_SIZE = 40;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private boolean isVisible;
-    private BufferedImage[] spriteImages = new BufferedImage[1];
+public class Nunez extends Player{
     
-    public Nunez(int x , int y){
-        this.x = x;
-        this.y = y;
-        this.isVisible = true;
+    public Nunez(int x , int y , CollectableHitObservable co){
+        super(x,y,co);
         try{
-            spriteImages[0] = ImageIO.read(new File("resources/players/nunez3.png"));
-            this.height = spriteImages[0].getHeight();
-            this.width = spriteImages[0].getWidth();
+            setSpriteImage(ImageIO.read(new File("resources/players/nunez3.png")));
+            setHeight(getSpriteImages()[0].getHeight());
+            setWidth(getSpriteImages()[0].getWidth());
             
         }
         catch(IOException e){
             System.out.println("No File Found");
         } 
+        
+        super.setY(600 - getHeight());
     }
     
     @Override
-    public int getX() {
-        return x;
+    public int getLeftHand() {
+        return 10;
     }
 
     @Override
-    public void setX(int x) {
-        this.x = x;
+    public int getRightHand() {
+        return getWidth() - 5;
+    }   
+
+    @Override
+    public int getLeftDisplcementY() {
+        return 20;
     }
 
     @Override
-    public int getY() {
-        return y;
+    public int getRightDisplcementY() {
+        return 0;
     }
-
     @Override
-    public void setY(int y) {
-
+    public void setY(int y){
+        
     }
-
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
-
-    @Override
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    @Override
-    public BufferedImage[] getSpriteImages() {
-        return spriteImages;
-    }
-    
 }
