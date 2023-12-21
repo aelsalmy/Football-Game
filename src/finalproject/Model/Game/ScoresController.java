@@ -24,8 +24,12 @@ class ScoresController implements AvoidableHitObservor , CollectableHitObservor{
     }
 
     @Override
-    public void updateCollect(Shapes s) {
+    public void updateCollectRight(Shapes s) {
 
     }
-    
+
+    @Override
+    public void updateCollectLeft(Shapes s) {
+
+    }   
 }

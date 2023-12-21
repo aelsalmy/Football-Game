@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Game implements World, AvoidableHitObservor, CollectableHitObservor {
 
-    private ObjectFactory factory;
-    private Player player;
+    private final ObjectFactory factory;
+    private final Player player;
     private GameState stateOfGame;
     private final LivesController livesController = new LivesController();
     private final ScoresController scoresController = new ScoresController();
@@ -25,10 +25,8 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private int speed = 1;
     private int controlSpeed = 10;
     private boolean init = false;
-    private List<GameObject> objs = new LinkedList();
-    private List<Shapes> destroy = new LinkedList();
-    private boolean hitInLeft = false;
-
+    private final List<GameObject> objs = new LinkedList();
+    private final List<Shapes> destroy = new LinkedList();
 
     public Game(Player p) {
         this.stateOfGame = new GameRunning();
@@ -110,8 +108,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
 
         objs.forEach((o) -> movables.add(o));
         objs.clear();
-
-        // System.out.println("Refreshing");
+                          
         for (GameObject obj : movables) {
             Shapes s = (Shapes) obj;
             if (s.getY() >= height) {
@@ -121,17 +118,22 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
                 s.setX((int) (Math.random() * width));
                 s.setY((int) (Math.random() * height / 3));
             }
+            if(s.getType() == ObjectTypes.Avoidable){
+                if(s.getY() + s.getHeight() == this.height - player.getHeight())
+                    if(!(player.getX() > s.getX() + s.getWidth() -20 || player.getX() + player.getWidth() < s.getX() + 20))
+                        this.collisionOccured(s , false);
+            }
             else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()){
                 if(leftHandCollides(s))
-                    this.collisionOccured(s);
+                    this.collisionOccured(s , false);
                 }
             else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()){
                 if(rightHandCollides(s))
-                    this.collisionOccured(s);
+                    this.collisionOccured(s , true);
             }
             
             s.setY(s.getY() + speed);
-        }
+        }       
         destroy.forEach((o) -> movables.remove(o));
         destroy.clear();
         return stateOfGame.refreshGame();
@@ -139,23 +141,23 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     
     private boolean rightHandCollides(Shapes s){
         boolean rightHand = (s.getX() + s.getWidth()) < player.getRightHand() + player.getX() - 10 || s.getX() > player.getRightHand() + player.getX(); 
-        if(!rightHand)
-            this.hitInLeft = false;
         return !rightHand;
     }
     
     private boolean leftHandCollides(Shapes s){
         boolean leftHand = (s.getX() + s.getWidth()) < player.getLeftHand() + player.getX() || s.getX() > player.getLeftHand() + 10 + player.getX(); 
-        if(!leftHand)
-            this.hitInLeft = true;
         return !leftHand;
     }
 
-    private void collisionOccured(Shapes shape) {
+    private void collisionOccured(Shapes shape , boolean isRight) {
         if(shape.getType() == ObjectTypes.Avoidable)
             hitObs.notifySubscribers();
-        else
-            collectObs.notifySubscribers(shape);
+        else{
+            if(isRight)
+                collectRight(shape);
+            else
+                collectLeft(shape);
+        }
     }
 
     @Override
@@ -175,20 +177,35 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
 
     @Override
     public void updateHit() {
+        //TODO
         System.out.println("AYYY I'm Hit");
     }
 
-    @Override
-    public void updateCollect(Shapes s) {
+    public void collectLeft(Shapes s) {
         destroy.add(s);
         s.setIsConstant(true);
         controlled.add(s);
-        
-        if(hitInLeft)
-            player.addLeftHandHeight(s.getHeight());
-        else
-            player.addRightHandHeight(s.getHeight());
-        
+        player.addLeftHandHeight(s.getHeight()); 
+        player.getLeftStack().push(s);
         objs.add(factory.generateRandomCollectable((int)(Math.random() * width), (int) (Math.random() * height / 3)));
+    }
+
+    public void collectRight(Shapes s) {
+        destroy.add(s);
+        s.setIsConstant(true);
+        controlled.add(s);
+        player.addRightHandHeight(s.getHeight()); 
+        player.getRightStack().push(s);
+        objs.add(factory.generateRandomCollectable((int)(Math.random() * width), (int) (Math.random() * height / 3)));
+    }
+
+    @Override
+    public void updateCollectLeft(Shapes s) {
+        //TODO
+    }
+
+    @Override
+    public void updateCollectRight(Shapes s) {
+        //TODO
     }
 }

@@ -20,9 +20,4 @@ public class Injury extends Shapes{
             System.out.println("No Image Found");
         }        
     }
-    
-    @Override
-    public void setIsConstant(boolean b){
-            
-    }
 }

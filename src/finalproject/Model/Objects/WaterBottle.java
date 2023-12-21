@@ -28,9 +28,4 @@ public class WaterBottle extends Shapes{
             System.out.println("No File Found");
         }      
     } 
-    
-    @Override
-    public void setIsConstant(boolean b){
-            
-    }
 }

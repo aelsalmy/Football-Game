@@ -11,5 +11,6 @@ import finalproject.Model.Objects.Shapes;
  * @author abdul
  */
 public interface CollectableHitObservor {
-    public void updateCollect(Shapes s);
+    public void updateCollectLeft(Shapes s);
+    public void updateCollectRight(Shapes s);
 }

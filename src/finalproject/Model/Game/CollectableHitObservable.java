@@ -31,8 +31,13 @@ public class CollectableHitObservable {
         subscribers.remove(o);
     }
     
-    public void notifySubscribers(Shapes s){
+    public void notifySubscribersLeft(Shapes s){
         for(CollectableHitObservor subs : subscribers)
-            subs.updateCollect(s);
+            subs.updateCollectLeft(s);
+    }
+    
+    public void notifySubscribersRight(Shapes s){
+        for(CollectableHitObservor subs : subscribers)
+            subs.updateCollectRight(s);
     }
 }

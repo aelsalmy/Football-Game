@@ -12,12 +12,12 @@ public abstract class Player implements GameObject{
     private int y;
     private int width;
     private int height;
-    private boolean isVisible;
+    private final boolean isVisible;
     private BufferedImage[] spriteImages = new BufferedImage[1];
     private int playerLeftHandHeight = 0;
     private int playerRightHandHeight = 0;
-    private Stack<Shapes> leftStack = new Stack();
-    private Stack<Shapes> rightStack = new Stack();
+    private final Stack<Shapes> leftStack = new Stack();
+    private final Stack<Shapes> rightStack = new Stack();
     
     public Player(int x , int y){
         this.x = x;
@@ -30,7 +30,7 @@ public abstract class Player implements GameObject{
     }
     
     public Stack getRightStack(){
-        return leftStack;
+        return rightStack;
     }
     
     public int getLeftHandHeight(){

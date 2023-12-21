@@ -20,6 +20,7 @@ public abstract class Shapes implements GameObject{
     private BufferedImage[] spriteImages = new BufferedImage[1];
     private ObjectTypes type;
     private boolean isConstant = false;
+    private boolean move = true;
     
     
     
@@ -45,6 +46,10 @@ public abstract class Shapes implements GameObject{
         spriteImages[0] = b;
     }
     
+    public void setMove(boolean move) {
+        this.move = move;
+    }
+    
     @Override
     public int getX() {
         return x;
@@ -52,7 +57,8 @@ public abstract class Shapes implements GameObject{
 
     @Override
     public void setX(int x) {
-        this.x = x;
+        if(move)
+            this.x = x;
     }
 
     @Override
