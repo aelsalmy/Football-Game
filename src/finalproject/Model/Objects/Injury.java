@@ -9,6 +9,7 @@ public class Injury extends Shapes{
     public Injury(int x , int y){
         super(x,y);
         
+        setItemType(ItemTypes.Injury);
         setType(ObjectTypes.Avoidable);
         
         try{

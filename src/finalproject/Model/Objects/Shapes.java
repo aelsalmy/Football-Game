@@ -21,8 +21,15 @@ public abstract class Shapes implements GameObject{
     private ObjectTypes type;
     private boolean isConstant = false;
     private boolean move = true;
+    private ItemTypes itemType;
     
+    public final ItemTypes getItemType(){
+        return itemType;
+    }
     
+    protected final void setItemType(ItemTypes i){
+       this.itemType = i; 
+    }
     
     public void setIsConstant(boolean isConst){
         this.isConstant = isConst;

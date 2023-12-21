@@ -13,12 +13,11 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private final ObjectFactory factory;
     private final Player player;
     private GameState stateOfGame;
-    private final LivesController livesController = new LivesController();
-    private final ScoresController scoresController = new ScoresController();
-    private final AvoidableHitObservable hitObs;
-    private final CollectableHitObservable collectObs;
     private final int width = 1000;
     private final int height = 600;
+    private final ScoresController scoreController;
+    private final LivesController livesController;
+    private final AvoidableHitObservable hitObs;
     private final List<GameObject> constants = new LinkedList();
     private final List<GameObject> movables = new LinkedList();
     private final List<GameObject> controlled = new LinkedList();
@@ -28,25 +27,20 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private final List<GameObject> objs = new LinkedList();
     private final List<Shapes> destroy = new LinkedList();
 
-    public Game(Player p) {
+    public Game(Player p , ScoresController sc , AvoidableHitObservable hitObs) {
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
         this.player = p;
+        this.scoreController = sc;
+        this.livesController = new LivesController();
         
-        hitObs = AvoidableHitObservable.getInstance();
-        hitObs.addSubscriber(livesController);
-        hitObs.addSubscriber(scoresController);
+        this.hitObs = hitObs;
         
-        collectObs = CollectableHitObservable.getInstance();
-        collectObs.addSubscriber(scoresController);
-
         controlled.add(p);
 
         constants.add(new Whistle(10, 22));
         constants.add(new YellowCard(50, 2));
         constants.add(new RedCard(90, 2));
-        hitObs.addSubscriber(this);
-        collectObs.addSubscriber(this);
     }
 
     private void initialize() {
@@ -184,28 +178,38 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     public void collectLeft(Shapes s) {
         destroy.add(s);
         s.setIsConstant(true);
-        controlled.add(s);
-        player.addLeftHandHeight(s.getHeight()); 
-        player.getLeftStack().push(s);
+        constants.add(s);
+        player.addToLeftStack(s);
         objs.add(factory.generateRandomCollectable((int)(Math.random() * width), (int) (Math.random() * height / 3)));
     }
 
     public void collectRight(Shapes s) {
         destroy.add(s);
         s.setIsConstant(true);
-        controlled.add(s);
-        player.addRightHandHeight(s.getHeight()); 
-        player.getRightStack().push(s);
+        constants.add(s);
+        player.addToRightStack(s);
         objs.add(factory.generateRandomCollectable((int)(Math.random() * width), (int) (Math.random() * height / 3)));
     }
 
     @Override
-    public void updateCollectLeft(Shapes s) {
-        //TODO
+    public void updateCollectLeft(ItemTypes s) {
+        //remove top 3 in LeftStack
+        for(int i = 0 ; i < 3 ; i++){
+            Shapes obj = (Shapes)player.getLeftStack().pop();
+            constants.remove(obj);
+            obj.setVisibility(false);
+            player.addLeftHandHeight(-1 * obj.getHeight());
+        }
     }
 
     @Override
-    public void updateCollectRight(Shapes s) {
-        //TODO
+    public void updateCollectRight(ItemTypes s) {
+        //remove top 3 in RightStack
+        for(int i = 0 ; i < 3 ; i++){
+            Shapes obj = (Shapes)player.getRightStack().pop();
+            constants.remove(obj);
+            obj.setVisibility(false);
+            player.addRightHandHeight(-1 * obj.getHeight());
+        }
     }
 }

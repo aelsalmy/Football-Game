@@ -4,13 +4,13 @@
  */
 package finalproject.Model.Game;
 
-import finalproject.Model.Objects.Shapes;
+import finalproject.Model.Objects.ItemTypes;
 
 /**
  *
  * @author abdul
  */
 public interface CollectableHitObservor {
-    public void updateCollectLeft(Shapes s);
-    public void updateCollectRight(Shapes s);
+    public void updateCollectLeft(ItemTypes i);
+    public void updateCollectRight(ItemTypes i);
 }

@@ -4,6 +4,7 @@
  */
 package finalproject.Model.Players;
 
+import finalproject.Model.Game.CollectableHitObservable;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,8 +15,8 @@ import javax.imageio.ImageIO;
  */
 public class Bellingham extends Player{
     
-    public Bellingham(int x , int y){
-        super(x,y);
+    public Bellingham(int x , int y , CollectableHitObservable co){
+        super(x , y , co);
         try{
             setSpriteImage(ImageIO.read(new File("resources/players/belligoal.png")));
             setHeight(getSpriteImages()[0].getHeight());

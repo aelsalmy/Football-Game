@@ -18,6 +18,7 @@ public class BallonDor extends Shapes{
     public BallonDor(int x , int y){
         super(x,y);
         
+        setItemType(ItemTypes.BalonDor);
         setType(ObjectTypes.Collectable);
         
         try{

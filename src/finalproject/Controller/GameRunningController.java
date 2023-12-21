@@ -6,7 +6,10 @@ package finalproject.Controller;
 
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
+import finalproject.Model.Game.AvoidableHitObservable;
+import finalproject.Model.Game.CollectableHitObservable;
 import finalproject.Model.Game.Game;
+import finalproject.Model.Game.ScoresController;
 import finalproject.Model.Players.Player;
 import finalproject.Model.Players.PlayerFactory;
 import finalproject.Model.Players.PlayerNames;
@@ -24,6 +27,10 @@ public class GameRunningController {
     private static GameRunningController instance = new GameRunningController();
     private GameController gameController;
     private DifficultyController diffController;
+    private ScoresController scoreController ;
+    private LivesController livesController;
+    private CollectableHitObservable collectObs;
+    private AvoidableHitObservable hitObs;
     private PlayerFactory pFactory;
     private Player player;
     private Game g;
@@ -31,10 +38,19 @@ public class GameRunningController {
     private GameRunningController(){
         diffController = DifficultyController.getInstance();
         pFactory = new PlayerFactory();
+        scoreController = new ScoresController();
+        livesController = new LivesController();
+                
+        hitObs = AvoidableHitObservable.getInstance();
+        hitObs.addSubscriber(scoreController);
+        hitObs.addSubscriber(livesController);
+        
+        collectObs = CollectableHitObservable.getInstance();
+        collectObs.addSubscriber(scoreController);
     }
     
     public void setPlayer(PlayerNames pName){
-        this.player = pFactory.getPlayer(pName);
+        this.player = pFactory.getPlayer(pName , collectObs);
     }
     
     public static GameRunningController getInstance(){
@@ -43,7 +59,10 @@ public class GameRunningController {
     
     public void startGame(){
         
-        g = new Game(player);
+        g = new Game(player , scoreController , hitObs);
+        
+        collectObs.addSubscriber(g);
+        hitObs.addSubscriber(g);
         
         //setup game menu
         JMenuBar  menuBar = new JMenuBar();

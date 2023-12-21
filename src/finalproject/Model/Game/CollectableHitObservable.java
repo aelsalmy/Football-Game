@@ -4,6 +4,7 @@
  */
 package finalproject.Model.Game;
 
+import finalproject.Model.Objects.ItemTypes;
 import finalproject.Model.Objects.Shapes;
 import java.util.ArrayList;
 
@@ -31,13 +32,13 @@ public class CollectableHitObservable {
         subscribers.remove(o);
     }
     
-    public void notifySubscribersLeft(Shapes s){
+    public void notifySubscribersLeft(ItemTypes i){
         for(CollectableHitObservor subs : subscribers)
-            subs.updateCollectLeft(s);
+            subs.updateCollectLeft(i);
     }
     
-    public void notifySubscribersRight(Shapes s){
+    public void notifySubscribersRight(ItemTypes i){
         for(CollectableHitObservor subs : subscribers)
-            subs.updateCollectRight(s);
+            subs.updateCollectRight(i);
     }
 }

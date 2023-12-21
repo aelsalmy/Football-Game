@@ -4,19 +4,21 @@
  */
 package finalproject.Model.Game;
 
-import finalproject.Model.Objects.Shapes;
+import finalproject.Model.Objects.ItemTypes;
 
 /**
  *
  * @author abdul
  */
-class ScoresController implements AvoidableHitObservor , CollectableHitObservor{
+public class ScoresController implements AvoidableHitObservor , CollectableHitObservor{
     
     private int score = 0;
     
     @Override
     public void updateHit() {
-        //TODO: Add logic to reset score 
+        score = score - 10; 
+        if(score < 0)
+            score = 0;
     }
     
     public int getScore(){
@@ -24,12 +26,20 @@ class ScoresController implements AvoidableHitObservor , CollectableHitObservor{
     }
 
     @Override
-    public void updateCollectRight(Shapes s) {
-
+    public void updateCollectRight(ItemTypes s) {
+        this.updateCollectScore(s);
     }
 
     @Override
-    public void updateCollectLeft(Shapes s) {
-
+    public void updateCollectLeft(ItemTypes s) {
+        this.updateCollectScore(s);
     }   
+    
+    private void updateCollectScore(ItemTypes i){
+        if(i == ItemTypes.BalonDor)
+            score = score + 3;
+        else
+            score = score + 1;
+        System.out.println("Score: " + score);
+    }
 }

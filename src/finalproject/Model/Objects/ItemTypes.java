@@ -8,8 +8,11 @@ package finalproject.Model.Objects;
  *
  * @author abdul
  */
-public enum BallTypes {
-    Brazuca,
-    Jabulani,
-    Rihla
+public enum ItemTypes {
+    BalonDor,
+    BallJabulani,
+    BallBrazuca,
+    BallRihla,
+    WaterBottle,
+    Injury
 }

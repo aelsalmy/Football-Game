@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Ball extends Shapes{
-
-    private BallTypes ballType;
     
     public Ball(int x , int y , int ballType){
         super(x,y);
@@ -24,15 +22,15 @@ public class Ball extends Shapes{
             switch(x){
                 case 0 -> {
                     setSpriteImage(ImageIO.read(new File("resources/collectibles/ball_soccer1.png")));
-                    this.ballType = BallTypes.Jabulani;
+                    setItemType(ItemTypes.BallJabulani);
                 }
                 case 1 -> {
                     setSpriteImage(ImageIO.read(new File("resources/collectibles/rihla.png")));
-                    this.ballType = BallTypes.Rihla;
+                    setItemType(ItemTypes.BallRihla);
                 }
                 case 2 -> {
                     setSpriteImage(ImageIO.read(new File("resources/collectibles/brazuca.png")));
-                    this.ballType = BallTypes.Brazuca;
+                    setItemType(ItemTypes.BallBrazuca);
                 }
             }
         }

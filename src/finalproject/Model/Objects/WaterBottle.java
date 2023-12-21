@@ -17,6 +17,7 @@ public class WaterBottle extends Shapes{
     public WaterBottle(int x , int y){
         super(x,y);
         
+        setItemType(ItemTypes.WaterBottle);
         setType(ObjectTypes.Avoidable);
         
         try{
