@@ -75,7 +75,12 @@ public abstract class Player implements GameObject{
                 this.stackedOfSameTypeRight = 0;
             }
             else{
-                this.stackedOfSameTypeRight = 1;
+                if(rightStack.size() >= 2){
+                    if(rightStack.get(rightStack.size() - 2).getItemType() == rightStack.get(rightStack.size() - 1).getItemType())
+                        this.stackedOfSameTypeRight = 2;
+                }
+                else
+                    this.stackedOfSameTypeRight = 1;
             }
         }
     }

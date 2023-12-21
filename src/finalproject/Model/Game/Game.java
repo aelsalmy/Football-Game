@@ -156,7 +156,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
 
     @Override
     public String getStatus() {
-        return " Game is Running 7ad yel7a2o hhhhh";
+        return ("Time Left = null | Score: " + scoreController.getScore());
     }
 
     @Override
@@ -171,8 +171,19 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
 
     @Override
     public void updateHit() {
-        //TODO
-        System.out.println("AYYY I'm Hit");
+        System.out.println("Hit");
+        while(!player.getLeftStack().empty()){
+            Shapes obj = (Shapes) player.getLeftStack().pop();
+            constants.remove(obj);
+            obj.setVisibility(false);
+            player.addLeftHandHeight(-1 * obj.getHeight());
+        }
+        while(!player.getRightStack().empty()){
+            Shapes obj = (Shapes) player.getRightStack().pop();
+            constants.remove(obj);
+            obj.setVisibility(false);
+            player.addRightHandHeight(-1 * obj.getHeight());
+        }
     }
 
     public void collectLeft(Shapes s) {
