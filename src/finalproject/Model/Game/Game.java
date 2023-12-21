@@ -21,26 +21,32 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private final List<GameObject> constants = new LinkedList();
     private final List<GameObject> movables = new LinkedList();
     private final List<GameObject> controlled = new LinkedList();
+    private final List<GameObject> lives = new LinkedList();
     private int speed = 1;
     private int controlSpeed = 10;
     private boolean init = false;
     private final List<GameObject> objs = new LinkedList();
     private final List<Shapes> destroy = new LinkedList();
+    private long startTime = System.currentTimeMillis();
+    private final int ALLOWED_TIME = 90 * 1000;
 
     public Game(Player p , ScoresController sc , AvoidableHitObservable hitObs) {
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
         this.player = p;
         this.scoreController = sc;
-        this.livesController = new LivesController();
+        this.livesController = new LivesController(lives , this);
         
         this.hitObs = hitObs;
+        hitObs.addSubscriber(livesController);
         
         controlled.add(p);
-
-        constants.add(new Whistle(10, 22));
-        constants.add(new YellowCard(50, 2));
-        constants.add(new RedCard(90, 2));
+        
+        lives.add(new Whistle(10, 22));
+        lives.add(new YellowCard(50, 2));
+        lives.add(new RedCard(90, 2));
+        
+        lives.forEach((obj) -> constants.add(obj));
     }
 
     private void initialize() {
@@ -99,29 +105,34 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         if (!init) {
             this.initialize();
         }
+        
+        boolean gameRunning = !(System.currentTimeMillis() - startTime > ALLOWED_TIME);
 
         objs.forEach((o) -> movables.add(o));
         objs.clear();
+        
+        if(!gameRunning)
+            this.endGame();
                           
         for (GameObject obj : movables) {
             Shapes s = (Shapes) obj;
-            if (s.getY() >= height) {
+            if (gameRunning && s.getY() >= height) {
                 if (obj instanceof Ball ball) {
                     ball.setImage((int) (Math.random() * 3));
                 }
                 s.setX((int) (Math.random() * width));
                 s.setY((int) (Math.random() * height / 3));
             }
-            if(s.getType() == ObjectTypes.Avoidable){
+            if(gameRunning && s.getType() == ObjectTypes.Avoidable){
                 if(s.getY() + s.getHeight() == this.height - player.getHeight())
                     if(!(player.getX() > s.getX() + s.getWidth() -20 || player.getX() + player.getWidth() < s.getX() + 20))
                         this.collisionOccured(s , false);
             }
-            else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()){
+            else if(gameRunning && s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()){
                 if(leftHandCollides(s))
                     this.collisionOccured(s , false);
                 }
-            else if(s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()){
+            else if(gameRunning && s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()){
                 if(rightHandCollides(s))
                     this.collisionOccured(s , true);
             }
@@ -131,6 +142,11 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         destroy.forEach((o) -> movables.remove(o));
         destroy.clear();
         return stateOfGame.refreshGame();
+    }
+    
+    public void endGame(){
+        stateOfGame = new GameEnded();
+        startTime = 0;
     }
     
     private boolean rightHandCollides(Shapes s){
@@ -156,7 +172,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
 
     @Override
     public String getStatus() {
-        return ("Time Left = null | Score: " + scoreController.getScore());
+        return ("Time Left = " + (int)Math.max(0 , ALLOWED_TIME - (System.currentTimeMillis() - startTime))/1000 +  " | Score: " + scoreController.getScore());
     }
 
     @Override

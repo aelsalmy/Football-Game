@@ -28,7 +28,6 @@ public class GameRunningController {
     private GameController gameController;
     private DifficultyController diffController;
     private ScoresController scoreController ;
-    private LivesController livesController;
     private CollectableHitObservable collectObs;
     private AvoidableHitObservable hitObs;
     private PlayerFactory pFactory;
@@ -39,11 +38,9 @@ public class GameRunningController {
         diffController = DifficultyController.getInstance();
         pFactory = new PlayerFactory();
         scoreController = new ScoresController();
-        livesController = new LivesController();
                 
         hitObs = AvoidableHitObservable.getInstance();
         hitObs.addSubscriber(scoreController);
-        hitObs.addSubscriber(livesController);
         
         collectObs = CollectableHitObservable.getInstance();
         collectObs.addSubscriber(scoreController);
@@ -59,7 +56,7 @@ public class GameRunningController {
     
     public void startGame(){
         
-        g = new Game(player , scoreController , hitObs);
+        g = new Game(player , scoreController ,hitObs);
         
         collectObs.addSubscriber(g);
         hitObs.addSubscriber(g);
