@@ -6,6 +6,7 @@ package finalproject.Controller;
 
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
+import finalproject.Model.DifficultyStrategies.Strategy;
 import finalproject.Model.Game.AvoidableHitObservable;
 import finalproject.Model.Game.CollectableHitObservable;
 import finalproject.Model.Game.Game;
@@ -50,6 +51,10 @@ public class GameRunningController {
         this.player = pFactory.getPlayer(pName , collectObs);
     }
     
+    public void setDifficulty(Strategy s){
+        diffController.setDifficulty(s);
+    }
+    
     public static GameRunningController getInstance(){
         return instance;
     }
@@ -57,6 +62,7 @@ public class GameRunningController {
     public void startGame(){
         
         g = new Game(player , scoreController ,hitObs);
+        diffController.updateDifficulty(g);
         
         collectObs.addSubscriber(g);
         hitObs.addSubscriber(g);

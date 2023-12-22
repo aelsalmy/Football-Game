@@ -4,6 +4,8 @@
  */
 package finalproject.Model.DifficultyStrategies;
 
+import finalproject.Model.Game.Game;
+
 /**
  *
  * @author abdul
@@ -11,8 +13,10 @@ package finalproject.Model.DifficultyStrategies;
 public class HardStrategy implements Strategy{
 
     @Override
-    public void updateDifficulty() {
-        //TODO: Logic to update difficulty to hard    
+    public void updateDifficulty(Game g) {
+        g.setSpeed(3);
+        g.setAvoidableCount(5);   
+        g.setHorizontalMotion(4);
     }
     
 }

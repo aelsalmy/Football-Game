@@ -4,10 +4,13 @@
  */
 package finalproject.Model.DifficultyStrategies;
 
+import finalproject.Model.Game.Game;
+
 /**
  *
  * @author abdul
  */
 public interface Strategy {
-    public void updateDifficulty();
+    //Difficulty is controlled by speed of objects and amount of avoidables
+    public void updateDifficulty(Game g);
 }

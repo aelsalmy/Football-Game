@@ -23,14 +23,16 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private final List<GameObject> movables = new LinkedList();
     private final List<GameObject> controlled = new LinkedList();
     private final List<GameObject> lives = new LinkedList();
-    private int speed = 1;
+    private int speed;
     private int controlSpeed = 10;
     private boolean init = false;
     private final List<GameObject> objs = new LinkedList();
     private final List<Shapes> destroy = new LinkedList();
     private long startTime = System.currentTimeMillis();
     private final int ALLOWED_TIME = 90 * 1000;
-
+    private int avoidableCount;
+    private int horizontalMotion;
+    
     public Game(Player p , ScoresController sc , AvoidableHitObservable hitObs) {
         this.stateOfGame = new GameRunning();
         this.factory = ObjectFactory.getInstance();
@@ -50,13 +52,25 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         
         lives.forEach((obj) -> constants.add(obj));
     }
+    
+    public void setSpeed(int speed){
+        this.speed = speed;
+    }
+    
+    public void setHorizontalMotion(int h){
+        this.horizontalMotion = h;
+    }
+    
+    public void setAvoidableCount(int count){
+        this.avoidableCount = count;
+    }
 
     private void initialize() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 init = true;
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < avoidableCount ; i++) {
                     objs.add(factory.generateRandomAvoidable((int) (Math.random() * width), (int) (Math.random() * height / 3)));
                     try {
                         Thread.sleep(500);
@@ -130,16 +144,17 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
                     if(!(player.getX() > s.getX() + s.getWidth() -20 || player.getX() + player.getWidth() < s.getX() + 20))
                         this.collisionOccured(s , false);
             }
-            else if(gameRunning && s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()){
+            else if(gameRunning && horizontalLeftCollision(s)){
                 if(leftHandCollides(s))
                     this.collisionOccured(s , false);
                 }
-            else if(gameRunning && s.getY() + s.getHeight() == (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()){
+            else if(gameRunning && horizontalRightCollision(s)){
                 if(rightHandCollides(s))
                     this.collisionOccured(s , true);
             }
             
-            s.setY(s.getY() + speed);
+            s.setY(s.getY() + 1);
+            s.setX(s.getX() + (Math.random() > 0.5 ? horizontalMotion : -1 * horizontalMotion));
         }       
         destroy.forEach((o) -> movables.remove(o));
         destroy.clear();
@@ -147,10 +162,20 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     }
     
     public void endGame(){
-         AudioPlayer.stop();
-        AudioPlayer.finalWhistle();
         stateOfGame = new GameEnded();
         startTime = 0;
+    }
+    
+    private boolean horizontalLeftCollision(Shapes s){
+        boolean b1 = s.getY() + s.getHeight() <= (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY() ;
+        boolean b2 = s.getY() + s.getHeight() >= (this.height - player.getHeight()) - player.getLeftHandHeight() + player.getLeftDisplcementY()- speed;
+        return b1 && b2;
+    }
+    
+    private boolean horizontalRightCollision(Shapes s){
+        boolean b1 = s.getY() + s.getHeight() <= (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY() ;
+        boolean b2 = s.getY() + s.getHeight() >= (this.height - player.getHeight()) - player.getRightHandHeight() + player.getRightDisplcementY()- speed;
+        return b1 && b2;
     }
     
     private boolean rightHandCollides(Shapes s){
@@ -204,7 +229,6 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
             obj.setVisibility(false);
             player.addRightHandHeight(-1 * obj.getHeight());
         }
-        AudioPlayer.normalWhistle();
     }
 
     public void collectLeft(Shapes s) {
@@ -247,8 +271,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         }
         playCelebration();
     }
-    private void playCelebration()
-{
-    this.player.playCelebration();
-}  
+    private void playCelebration(){
+        this.player.playCelebration();
+    }  
 }

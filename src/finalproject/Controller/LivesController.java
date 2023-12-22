@@ -29,15 +29,19 @@ public class LivesController implements AvoidableHitObservor{
         switch (lives) {
             case 3 -> {
                 ((Shapes)livesList.get(0)).setVisibility(true);
+                AudioPlayer.normalWhistle();
                 lives--;
             }
             case 2 -> {
                 ((Shapes)livesList.get(1)).setVisibility(true);
+                AudioPlayer.normalWhistle();
                 lives--;
             }
             case 1 -> {
                 ((Shapes)livesList.get(2)).setVisibility(true);
                 lives--;
+                AudioPlayer.stop();
+                AudioPlayer.finalWhistle();
                 game.endGame();
             }
             default -> {
