@@ -4,6 +4,7 @@
  */
 package finalproject.Model.Players;
 
+import finalproject.Controller.AudioPlayer;
 import finalproject.Model.Game.CollectableHitObservable;
 import java.io.File;
 import java.io.IOException;
@@ -52,5 +53,10 @@ public class Bellingham extends Player{
     @Override
     public void setY(int y){
         
+    }
+
+    @Override
+    public void playCelebration() {
+       AudioPlayer.bellinghamCeleb();
     }
 }

@@ -4,6 +4,7 @@
  */
 package finalproject.Model.Players;
 
+import finalproject.Controller.AudioPlayer;
 import finalproject.Model.Game.CollectableHitObservable;
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +53,10 @@ public class Messi extends Player{
     @Override
     public int getRightDisplcementY() {
         return 0;
+    }
+     @Override
+    public void playCelebration() {
+       AudioPlayer.goatCeleb();
     }
     
 }

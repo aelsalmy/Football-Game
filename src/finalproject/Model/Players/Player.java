@@ -172,7 +172,7 @@ public abstract class Player implements GameObject{
     public final BufferedImage[] getSpriteImages() {
         return spriteImages;
     }
-    
+    public abstract void playCelebration();
     public abstract int getLeftDisplcementY();
     public abstract int getRightDisplcementY();
     public abstract int getLeftHand();
