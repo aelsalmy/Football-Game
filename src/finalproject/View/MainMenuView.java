@@ -24,7 +24,7 @@ public class MainMenuView extends javax.swing.JFrame {
         jPanel1.add(new JLabel(new ImageIcon("resources/UCL.png")));
 
         gameController = GameRunningController.getInstance();
-        AudioPlayer.Champions();
+        AudioPlayer.champions();
     }
 
     /**
@@ -100,7 +100,7 @@ public class MainMenuView extends javax.swing.JFrame {
 
         this.setVisible(false);
         AudioPlayer.stop();
-        AudioPlayer.Ambient();
+        AudioPlayer.ambient();
         gameController.startGame();
     }//GEN-LAST:event_jButton1ActionPerformed
 
