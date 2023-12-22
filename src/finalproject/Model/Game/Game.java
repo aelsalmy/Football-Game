@@ -274,4 +274,5 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private void playCelebration(){
         this.player.playCelebration();
     }  
+    
 }

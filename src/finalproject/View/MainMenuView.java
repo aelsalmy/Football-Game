@@ -69,7 +69,7 @@ public class MainMenuView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Swis721 Blk BT", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("FIFA 69");
+        jLabel1.setText("FIFA 25");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 160, 50));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Easy", "Normal", "Hard" }));
@@ -123,10 +123,12 @@ public class MainMenuView extends javax.swing.JFrame {
                 gameController.setDifficulty(new HardStrategy());
         }
 
-        this.setVisible(false);
+        //this.setVisible(false);
+        
         AudioPlayer.stop();
         AudioPlayer.ambient();
         gameController.startGame();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
