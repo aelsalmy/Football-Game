@@ -11,17 +11,8 @@ import java.util.ArrayList;
  * @author abdul
  */
 public class AvoidableHitObservable {
-    private static AvoidableHitObservable instance = new AvoidableHitObservable();
     private ArrayList<AvoidableHitObservor> subscribers = new ArrayList();
-    
-    private AvoidableHitObservable(){
         
-    }
-    
-    public static AvoidableHitObservable getInstance(){
-        return instance;
-    }
-    
     public void addSubscriber(AvoidableHitObservor o){
         subscribers.add(o);
     }
