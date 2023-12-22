@@ -42,7 +42,7 @@ public class Messi extends Player{
 
     @Override
     public int getRightHand() {
-        return getWidth() - 10;
+        return getWidth() - 1;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Messi extends Player{
 
     @Override
     public int getRightDisplcementY() {
-        return 0;
+        return 5;
     }
      @Override
     public void playCelebration() {
