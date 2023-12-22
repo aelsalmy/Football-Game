@@ -66,7 +66,7 @@ public class AudioPlayer {
             clip = AudioSystem.getClip();
             clip.open(ais);
         } catch (Exception E) {
-            System.out.println("a7a");
+            System.out.println("Audio Exception");
         }
         clip.start();
 

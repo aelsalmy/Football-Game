@@ -5,6 +5,7 @@
 package finalproject.Controller;
 
 import finalproject.Model.DifficultyStrategies.Strategy;
+import finalproject.Model.Game.Game;
 
 /**
  *
@@ -27,7 +28,7 @@ public class DifficultyController {
         this.difficulty = s;
     }
     
-    public void updateDifficulty(){
-        difficulty.updateDifficulty();
+    public void updateDifficulty(Game g){
+        difficulty.updateDifficulty(g);
     }
 }

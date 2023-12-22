@@ -4,6 +4,8 @@
  */
 package finalproject.Model.DifficultyStrategies;
 
+import finalproject.Model.Game.Game;
+
 /**
  *
  * @author abdul
@@ -11,8 +13,10 @@ package finalproject.Model.DifficultyStrategies;
 public class NormalStrategy implements Strategy{
 
     @Override
-    public void updateDifficulty() {
-        //TODO: Logic to update difficulty to normal
+    public void updateDifficulty(Game g) {
+        g.setSpeed(2);
+        g.setAvoidableCount(4);
+        g.setHorizontalMotion(2);
     }
     
 }
