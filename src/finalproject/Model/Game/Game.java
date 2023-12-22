@@ -2,6 +2,7 @@ package finalproject.Model.Game;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
+import finalproject.Controller.AudioPlayer;
 import finalproject.Controller.LivesController;
 import finalproject.Model.Objects.*;
 import finalproject.Model.Players.*;
@@ -146,6 +147,8 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     }
     
     public void endGame(){
+         AudioPlayer.stop();
+        AudioPlayer.finalWhistle();
         stateOfGame = new GameEnded();
         startTime = 0;
     }
@@ -201,6 +204,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
             obj.setVisibility(false);
             player.addRightHandHeight(-1 * obj.getHeight());
         }
+        AudioPlayer.normalWhistle();
     }
 
     public void collectLeft(Shapes s) {
@@ -228,6 +232,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
             obj.setVisibility(false);
             player.addLeftHandHeight(-1 * obj.getHeight());
         }
+        playCelebration();
     }
 
     @Override
@@ -238,6 +243,12 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
             constants.remove(obj);
             obj.setVisibility(false);
             player.addRightHandHeight(-1 * obj.getHeight());
+            
         }
+        playCelebration();
     }
+    private void playCelebration()
+{
+    this.player.playCelebration();
+}  
 }
