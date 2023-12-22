@@ -1,5 +1,6 @@
 package finalproject.View;
 
+import finalproject.Controller.AudioPlayer;
 import finalproject.Controller.GameRunningController;
 import finalproject.Model.Players.PlayerNames;
 import java.awt.BorderLayout;
@@ -12,20 +13,20 @@ public class MainMenuView extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     GameRunningController gameController;
-    
+
     public MainMenuView() {
-        
+
         initComponents();
-        
+
         this.setAlwaysOnTop(false);
-        
+
         jPanel1.setLayout(new BorderLayout());
         jPanel1.add(new JLabel(new ImageIcon("resources/UCL.png")));
-       
-        
-        gameController = GameRunningController.getInstance();  
+
+        gameController = GameRunningController.getInstance();
+        AudioPlayer.champions();
     }
-       
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,19 +89,25 @@ public class MainMenuView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch(jComboBox1.getSelectedItem().toString()){
-            case "Messi" -> gameController.setPlayer(PlayerNames.Messi);
-            case "Nunez" -> gameController.setPlayer(PlayerNames.Nunez);
-            case "Bellingham" -> gameController.setPlayer(PlayerNames.Bellingham);
+        switch (jComboBox1.getSelectedItem().toString()) {
+            case "Messi" ->
+                gameController.setPlayer(PlayerNames.Messi);
+            case "Nunez" ->
+                gameController.setPlayer(PlayerNames.Nunez);
+            case "Bellingham" ->
+                gameController.setPlayer(PlayerNames.Bellingham);
         }
-        gameController.startGame();
+
         this.setVisible(false);
+        AudioPlayer.stop();
+        AudioPlayer.ambient();
+        gameController.startGame();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
