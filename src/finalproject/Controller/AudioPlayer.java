@@ -9,6 +9,8 @@ package finalproject.Controller;
  * @author abdul
  */
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -17,7 +19,8 @@ public class AudioPlayer {
 
     private static Clip clip;
     private static File f;
-
+    private static AudioInputStream ais;
+    private static ArrayList<Clip> allActiveClips = new ArrayList();
 
 
     public static void goatCeleb() {
@@ -62,9 +65,10 @@ public class AudioPlayer {
         f = new File("resources/sounds/" + s + ".wav");
 
         try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(f);
+            ais = AudioSystem.getAudioInputStream(f);
             clip = AudioSystem.getClip();
             clip.open(ais);
+            allActiveClips.add(clip);
         } catch (Exception E) {
             System.out.println("Audio Exception");
         }
@@ -74,7 +78,17 @@ public class AudioPlayer {
 
     public static void stop() {
         clip.stop();
-        clip.flush();
+        //clip.flush();
+        clip.close();
     }
-
+    
+    public static void stopAllSounds(){
+        for(Clip c : allActiveClips){
+            if(c.isRunning()){
+                c.stop();
+            }
+            c.close();
+        }
+        allActiveClips.clear();
+    }
 }

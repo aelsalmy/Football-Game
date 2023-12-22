@@ -66,6 +66,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     }
 
     private void initialize() {
+        AudioPlayer.ambient();
         new Thread(new Runnable() {
             @Override
             public void run() {

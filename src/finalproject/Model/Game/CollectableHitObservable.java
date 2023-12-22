@@ -13,17 +13,9 @@ import java.util.ArrayList;
  * @author abdul
  */
 public class CollectableHitObservable {
-    private static CollectableHitObservable instance = new CollectableHitObservable();
+
     private ArrayList<CollectableHitObservor> subscribers = new ArrayList();
-    
-    private CollectableHitObservable(){
         
-    }
-    
-    public static CollectableHitObservable getInstance(){
-        return instance;
-    }
-    
     public void addSubscriber(CollectableHitObservor o){
         subscribers.add(o);
     }

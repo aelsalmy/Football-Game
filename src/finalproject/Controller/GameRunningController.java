@@ -30,7 +30,6 @@ import javax.swing.JMenuItem;
  */
 public class GameRunningController {
 
-    private static GameRunningController instance = new GameRunningController();
     private GameController gameController;
     private DifficultyController diffController;
     private ScoresController scoreController;
@@ -41,15 +40,15 @@ public class GameRunningController {
     private Game g;
     private PlayerNames selectedPlayer;
 
-    private GameRunningController() {
+    public GameRunningController() {
         diffController = DifficultyController.getInstance();
         pFactory = new PlayerFactory();
         scoreController = new ScoresController();
 
-        hitObs = AvoidableHitObservable.getInstance();
+        hitObs = new AvoidableHitObservable();
         hitObs.addSubscriber(scoreController);
 
-        collectObs = CollectableHitObservable.getInstance();
+        collectObs = new CollectableHitObservable();
         collectObs.addSubscriber(scoreController);
     }
 
@@ -62,9 +61,6 @@ public class GameRunningController {
         diffController.setDifficulty(s);
     }
 
-    public static GameRunningController getInstance() {
-        return instance;
-    }
     public void endGame()
     {
         System.exit(0);
@@ -115,9 +111,8 @@ public class GameRunningController {
        newMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AudioPlayer.stop();
                 g.endGame();
-                AudioPlayer.stop();
+                AudioPlayer.stopAllSounds();
                 Window[] windows = Window.getWindows();
                 for (Window window : windows) {
                     if (window instanceof JFrame) {
@@ -125,11 +120,11 @@ public class GameRunningController {
                     }
                 }
                 MainMenuView mView = new MainMenuView();
-                mView.setVisible(true);         
+                mView.setVisible(true);
+                g = null;
         }
         
        });
-
-        gameController = GameEngine.start("Football Game", g, menuBar, new Color(0, 153, 120));
+       gameController = GameEngine.start("Football Game", g, menuBar, new Color(0, 153, 120));
     }
 }
