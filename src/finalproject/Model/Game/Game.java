@@ -133,6 +133,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
                           
         for (GameObject obj : movables) {
             Shapes s = (Shapes) obj;
+            //reuse Objects
             if (gameRunning && s.getY() >= height) {
                 if (obj instanceof Ball ball) {
                     ball.setImage((int) (Math.random() * 3));
@@ -275,6 +276,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
         }
         playCelebration();
     }
+    
     private void playCelebration(){
         this.player.playCelebration();
     }  
