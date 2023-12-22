@@ -16,8 +16,10 @@ import finalproject.Model.Players.PlayerFactory;
 import finalproject.Model.Players.PlayerNames;
 import finalproject.View.MainMenuView;
 import java.awt.Color;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -37,6 +39,7 @@ public class GameRunningController {
     private PlayerFactory pFactory;
     private Player player;
     private Game g;
+    private PlayerNames selectedPlayer;
 
     private GameRunningController() {
         diffController = DifficultyController.getInstance();
@@ -51,6 +54,7 @@ public class GameRunningController {
     }
 
     public void setPlayer(PlayerNames pName) {
+        selectedPlayer = pName;
         this.player = pFactory.getPlayer(pName, collectObs);
     }
 
@@ -61,10 +65,10 @@ public class GameRunningController {
     public static GameRunningController getInstance() {
         return instance;
     }
-public void endGame()
-{
-    System.exit(0);
-}
+    public void endGame()
+    {
+        System.exit(0);
+    }
     public void startGame() {
 
         g = new Game(player, scoreController, hitObs);
@@ -88,6 +92,7 @@ public void endGame()
         menu.addSeparator();
         menu.add(exitMenuItem);
         menuBar.add(menu);
+        
         resumeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,25 +109,26 @@ public void endGame()
             @Override
             public void actionPerformed(ActionEvent e) {
                 //gameController.changeWorld(new Game(player, scoreController, hitObs));
-            System.exit(0);
+                System.exit(0);
             }
         });
        newMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                MainMenuView mmv = new MainMenuView();
-//                g.endGame();
-//                mmv.setVisible(true);
-                Game ng = new Game(player, scoreController, hitObs);
-                 diffController.updateDifficulty(ng);
-
-        collectObs.addSubscriber(ng);
-        hitObs.addSubscriber(ng);
-        gameController.changeWorld(ng);
-                
-            
-            }
-        });
+                AudioPlayer.stop();
+                g.endGame();
+                AudioPlayer.stop();
+                Window[] windows = Window.getWindows();
+                for (Window window : windows) {
+                    if (window instanceof JFrame) {
+                        window.dispose();
+                    }
+                }
+                MainMenuView mView = new MainMenuView();
+                mView.setVisible(true);         
+        }
+        
+       });
 
         gameController = GameEngine.start("Football Game", g, menuBar, new Color(0, 153, 120));
     }
