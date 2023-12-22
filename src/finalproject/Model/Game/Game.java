@@ -24,7 +24,7 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     private final List<GameObject> controlled = new LinkedList();
     private final List<GameObject> lives = new LinkedList();
     private int speed;
-    private int controlSpeed = 10;
+    private final int controlSpeed = 10;
     private boolean init = false;
     private final List<GameObject> objs = new LinkedList();
     private final List<Shapes> destroy = new LinkedList();
@@ -162,8 +162,11 @@ public class Game implements World, AvoidableHitObservor, CollectableHitObservor
     }
     
     public void endGame(){
-        stateOfGame = new GameEnded();
-        startTime = 0;
+        if(startTime != 0){
+            stateOfGame = new GameEnded();
+            AudioPlayer.finalWhistle();
+            startTime = 0;
+        }
     }
     
     private boolean horizontalLeftCollision(Shapes s){

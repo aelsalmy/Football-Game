@@ -74,6 +74,7 @@ public class AudioPlayer {
 
     public static void stop() {
         clip.stop();
+        clip.flush();
     }
 
 }

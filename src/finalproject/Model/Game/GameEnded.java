@@ -4,6 +4,7 @@
  */
 package finalproject.Model.Game;
 
+
 /**
  *
  * @author abdul
@@ -13,7 +14,6 @@ public class GameEnded implements GameState{
     @Override
     public boolean refreshGame() {
         //TODO: End Game Logic
-        
         return false;
     }
     
